@@ -80,7 +80,7 @@ namespace Oid85.Health.Application.Services
 
             GetPressureListIntraDayItem GetPressure(DateOnly date, TimeOnly time)
             {
-                var pressure = pressures.Find(
+                var pressure = pressures.FindLast(
                     x => x.Date == date && x.Time > time.AddMinutes(-30) && x.Time < time.AddMinutes(30));
 
                 if (pressure is null)
