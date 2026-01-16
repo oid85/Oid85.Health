@@ -14,6 +14,26 @@ namespace Oid85.Health.Application.Services
         : IGlucoseService
     {
         /// <inheritdoc/>
+        public async Task<GetCountGlucoseResponse> GetCountGlucoseAsync(GetCountGlucoseRequest request)
+        {
+            var glucose = await glucoseRepository.GetGlucoseByDateAsync(request.Date);
+
+            if (glucose is null)
+                return new GetCountGlucoseResponse { TotalCount = 0 };
+
+            var count = 0;
+
+            if (glucose.BeforeMorningFood is not null) count++;
+            if (glucose.AfterMorningFood is not null) count++;
+            if (glucose.BeforeTraining is not null) count++;
+            if (glucose.AfterTraining is not null) count++;
+            if (glucose.BeforeEveningFood is not null) count++;
+            if (glucose.BeforeNight is not null) count++;
+
+            return new GetCountGlucoseResponse { TotalCount = count };
+        }
+
+        /// <inheritdoc/>
         public async Task<GetGlucoseListResponse?> GetGlucoseListAsync(GetGlucoseListRequest request)
         {
             var dates = DateHelper.GetDates(request.From, request.To).OrderDescending();

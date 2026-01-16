@@ -17,5 +17,10 @@ namespace Oid85.Health.Application.Interfaces.Services
         /// Получение списка измерений глюкозы
         /// </summary>
         Task<GetGlucoseListResponse?> GetGlucoseListAsync(GetGlucoseListRequest request);
+
+        /// <summary>
+        /// Получить количество измерений глюкозы за дату
+        /// </summary>        
+        Task<GetCountGlucoseResponse> GetCountGlucoseAsync(GetCountGlucoseRequest request);
     }
 }

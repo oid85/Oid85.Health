@@ -45,4 +45,17 @@ public class GlucoseController(
         GetResponseAsync(
             () => glucoseService.SetGlucoseAsync(request),
             result => new BaseResponse<SetGlucoseResponse> { Result = result });
+
+    /// <summary>
+    /// Получить количество измерений глюкозы за дату
+    /// </summary>
+    [HttpPost("count")]
+    [ProducesResponseType(typeof(BaseResponse<GetCountGlucoseResponse>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(BaseResponse<GetCountGlucoseResponse>), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(BaseResponse<GetCountGlucoseResponse>), StatusCodes.Status500InternalServerError)]
+    public Task<IActionResult> GetGlucoseAsync(
+        [FromBody] GetCountGlucoseRequest request) =>
+        GetResponseAsync(
+            () => glucoseService.GetCountGlucoseAsync(request),
+            result => new BaseResponse<GetCountGlucoseResponse> { Result = result });
 }
